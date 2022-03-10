@@ -15,7 +15,6 @@ namespace WpfMVVM_Proyect.Commands
     internal class DeleteProFacturaCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
-
         public bool CanExecute(object parameter)
         {
             return true;
@@ -41,9 +40,23 @@ namespace WpfMVVM_Proyect.Commands
                 MessageBox.Show("Selecciona un departamento");
             }*/
             //bool okResult = formularioViewModel.DeleteProducto(formularioViewModel.CurrentProducto);
-            FormularioView view = (FormularioView)parameter;
-            ProductoModel2 pro = (ProductoModel2)view.ProductoListView.SelectedItem;
-            bool okResult = formularioViewModel.DeleteProducto(pro);
+
+            try
+            {
+                foreach (ProductoModel2 p in formularioViewModel.ListaProductos2)
+                {
+                    if (p._id.Equals(formularioViewModel.CurrentProducto._id))
+                    {
+                        formularioViewModel.ListaProductos2.Remove(p);
+                        //totalF = totalf - totalP
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            /*bool okResult = formularioViewModel.DeleteProducto(pro);
             if (okResult)
             {
                 MessageBox.Show("Se ha eliminado el producto");
@@ -51,7 +64,7 @@ namespace WpfMVVM_Proyect.Commands
             else
             {
                 MessageBox.Show("No se ha eliminado el producto");
-            }
+            }*/
         }
         FormularioViewModel formularioViewModel { get; set; }
         public DeleteProFacturaCommand(FormularioViewModel formularioViewModel)

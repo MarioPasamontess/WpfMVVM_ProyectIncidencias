@@ -34,10 +34,10 @@ namespace WpfMVVM_Proyect.Services.DataSet
 
             }
         }
-        public static DataTable GetDataByFactura(int idF)
+        /*public static DataTable GetDataByFactura(int idF)
         {
-            return adapter.GetData(idF);
-        }
+            //return adapter.GetData(idF);
+        }*/
         private static productoTableAdapter productoAdapter = new productoTableAdapter();
         public static ObservableCollection<ProductoModel2> getProducto()
         {

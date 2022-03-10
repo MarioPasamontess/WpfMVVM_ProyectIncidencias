@@ -19,10 +19,10 @@ namespace WpfMVVM_Proyect.ViewModels
             myReport = new ReportViewer();
             rds = new ReportDataSource();
         }
-        public void GenerarInformeIncidenciasFactura(string factura)
+        public void GenerarInformeIncidenciasFactura(int factura)
         {
             rds.Name = "InformeIncidencias";
-            rds.Value = DataSetHandler.GetDataByDNI(dni);
+            //rds.Value = DataSetHandler.GetDataByFactura(factura);
             myReport.LocalReport.DataSources.Add(rds);
             myReport.LocalReport.ReportPath = "../../Reports/InformeIncidenciasDNI.rdlc";
             byte[] PDFBytes = myReport.LocalReport.Render(format: "PDF", deviceInfo: "");

@@ -50,16 +50,16 @@
                     </i:Interaction.Triggers>
                 </ComboBox>
                 <TextBlock Text="Cantidad" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center"/>
-                <TextBox x:Name="Cantidad" Width="50" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="2" Text="{Binding CurrentProducto.Cantidad}" Cursor="IBeam"/>
-                <Button Content="Añadir" Width="100" Height="28" Grid.Row="1" Grid.Column="3" Command="{Binding AñadirProductoCommand}" CommandParameter="{Binding ElementName=view}" Cursor="Hand"/>
+                <TextBox x:Name="Cantidad" Width="50" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="2" Text="{Binding Cantidad}" Cursor="IBeam"/>
+                <Button Content="Añadir" Width="100" Height="28" Grid.Row="1" Grid.Column="3" Command="{Binding AñadirProductoCommand}" CommandParameter="{Binding ElementName=cmbProducto, Path=SelectedItem}" Cursor="Hand"/>
             </Grid>
         </StackPanel>
         <StackPanel Height="150">
             <Grid>
-                <ListView  HorizontalAlignment="Left" Grid.Column="0"  x:Name="ProductoListView" ItemsSource="{Binding ListaProductos2 }"  SelectedItem="{Binding Producto}">
+                <ListView HorizontalAlignment="Left" Grid.Column="0"  x:Name="ProductoListView" ItemsSource="{Binding ListaProductos2 }" >
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
-                            <i:InvokeCommandAction Command="{Binding LoadFacturaCommand}" CommandParameter="{Binding ElementName=view}"/>
+                            <i:InvokeCommandAction Command="{Binding LoadFacturaCommand}" CommandParameter="{Binding ElementName=ProductoListView, Path=SelectedItem}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                     <ListView.View>

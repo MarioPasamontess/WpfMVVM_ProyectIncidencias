@@ -37,23 +37,30 @@ namespace WpfMVVM_Proyect.Commands
                 MessageBox.Show("Error al insertar");
             }*/
             bool insertar = true;
-            
+            formulario.CurrentProducto = (ProductoModel2)parameter;         
             foreach (ProductoModel2 p in formulario.ListaProductos2)
             {
-                //if (formulario.CurrentProducto._id.Equals(p._id))
-                if (formulario.CurrentProducto._id == p._id)
+                //if(formulario.ListaProductos2.Contains(p))
+                if (formulario.CurrentProducto._id.Equals(p._id))
                 {
-                    p.Cantidad = formulario.CurrentProducto.Cantidad + p.Cantidad;
+                    formulario.CurrentProducto.Cantidad = formulario.CurrentProducto.Cantidad + formulario.Cantidad; 
                     formulario.CurrentProducto.Total = p.Cantidad * formulario.CurrentProducto.Precio;
-                    //bool update = formulario.UpdateProducto(formulario.CurrentProducto); 
                     insertar = false;
+                    break;
                 }
+                else
+                {
+                    insertar = true;
+                }
+
             }
             if (insertar)
             {
+                formulario.CurrentProducto.Cantidad = formulario.Cantidad;
                 insertar = formulario.NuevoProducto(formulario.CurrentProducto);
                 if (insertar)
-                {   
+                {
+                    formulario.CurrentProducto.Cantidad = formulario.Cantidad;
                     formulario.CurrentProducto.Total = formulario.CurrentProducto.Cantidad * formulario.CurrentProducto.Precio;
                     MessageBox.Show("Se ha creado correctamente");
                     formulario.CurrentProducto = new ProductoModel2();

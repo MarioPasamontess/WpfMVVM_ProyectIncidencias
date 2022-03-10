@@ -19,6 +19,16 @@ namespace WpfMVVM_Proyect.ViewModels
         public ICommand AñadirProductoCommand { set; get; }
         public ICommand LoadFacturaCommand { set; get; }
         public ICommand DeleteProFacturaCommand { set; get; }
+        private int cantidad;
+        public int Cantidad
+        {
+            get { return cantidad; }
+            set
+            {
+                cantidad = value;
+                OnPropertyChanged(nameof(Cantidad));
+            }
+        }
         private ProductoModel2 producto;
         public ProductoModel2 Producto
         {
