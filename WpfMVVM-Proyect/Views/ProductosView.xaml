@@ -1,0 +1,153 @@
+﻿<UserControl x:Class="WpfMVVM_Proyect.Views.ProductosView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:local="clr-namespace:WpfMVVM_Proyect.Views"
+             mc:Ignorable="d" 
+             x:Name="view">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadProductsCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <StackPanel Background="White" Width="1200" Height="800">
+        <TextBlock Text="PRODUCTOS" FontSize="35" TextAlignment="center" FontStyle="Italic" Background="LightGray" Margin="20"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="820"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="warning" Text="-" Foreground="red" TextAlignment="Center" FontWeight="Bold" Grid.Column="0" FontSize="14" Grid.Row="6" HorizontalAlignment="Center" Margin="20"/>
+            <Button Content="Buscar" Width="100" Grid.Column="1" HorizontalAlignment="Left" Command="{Binding BuscarCommand}" CommandParameter="{Binding ElementName=view}"/>
+            <TextBox x:Name="busqueda" materialDesign:HintAssist.Hint="BUSCAR CÓDIGO" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             VerticalAlignment="Center" Width="200" FontSize="16" Text="{Binding Busqueda, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:TextFieldAssist.HasClearButton="True" Grid.Column="0" Margin="20,0,0,10" HorizontalAlignment="Right"/>
+        </Grid>
+        <StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="521*"/>
+                    <ColumnDefinition Width="80*"/>
+                    <ColumnDefinition Width="600*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Column="1" Grid.Row="0" Height="280" Grid.ColumnSpan="2">
+                    <ListView x:Name="ProductoListView" ItemsSource="{Binding ListaProductos}" MaxHeight="280" MaxWidth="500" SelectionChanged="ProductoListView_SelectionChanged">
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding LoadProductCommand}" CommandParameter="{Binding ElementName=ProductoListView, Path=SelectedItem}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Cod" DisplayMemberBinding="{Binding Path=_id}"/>
+                                <GridViewColumn Header="Tipo" DisplayMemberBinding="{Binding Path=Tipo}"/>
+                                <GridViewColumn Header="Marca" DisplayMemberBinding="{Binding Path=Marca}"/>
+                                <GridViewColumn Header="Color" DisplayMemberBinding="{Binding Path=Color}"/>
+                                <GridViewColumn Header="Referencia" DisplayMemberBinding="{Binding Path=Referencia}"/>
+                                <GridViewColumn Header="Descripcion" DisplayMemberBinding="{Binding Path=Descripcion}"/>
+                                <GridViewColumn Header="Precio" DisplayMemberBinding="{Binding Path=Precio}"/>
+                                <GridViewColumn Header="Fecha entrada" DisplayMemberBinding="{Binding Path=Fecha}"/>
+                                <GridViewColumn Header="Stock" DisplayMemberBinding="{Binding Path=Stock}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+                <Grid x:Name="GridPrincipal" Background="AliceBlue" Margin="20,20,0,20" Width="500" Height="280" HorizontalAlignment="Left" Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Código de barras" FontSize="18" TextAlignment="Right" Margin="10,10,25,5" Padding="10"/>
+                    <TextBlock Grid.Column="1" Grid.Row="1" Text="" FontSize="20"/>
+                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Proveedor" FontSize="18" TextAlignment="Right"  Margin="10,10,25,5"  Padding="10"/>
+                    <TextBlock Grid.Column="0" Grid.Row="3" Text="Tipo" FontSize="18" TextAlignment="Right"  Margin="10,10,25,10"  Padding="10"/>
+                    <TextBlock Grid.Column="0" Grid.Row="4" Text="Marca" FontSize="18" TextAlignment="Right"  Margin="10,10,25,10"  Padding="10"/>
+                    <TextBlock Grid.Column="0" Grid.Row="5" Text="Color" FontSize="18" TextAlignment="Right"  Margin="10,10,25,10"  Padding="10"/>
+
+                    <TextBlock Grid.Row="5" Text="" FontSize="20" TextAlignment="Right"  Margin="10,10,25,8"/>
+                    <TextBox x:Name="codBarras" materialDesign:HintAssist.Hint="Código de barras" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             VerticalAlignment="Center" Width="200" FontSize="15" Text="{Binding CurrentProducto._id, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:TextFieldAssist.HasClearButton="True" Grid.Column="1" Grid.Row="0" Margin="20,0,0,8"/>
+                    <ComboBox Width="200" x:Name="comboProveedores" HorizontalContentAlignment="Left" materialDesign:HintAssist.Hint="Proveedor" FontSize="15" 
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox}" Text="{Binding CurrentProducto.Proveedor}" ItemsSource="{Binding ListaAlmacen}"  Grid.Column="1" Grid.Row="2"  Margin="20,0,0,8"/>
+                    <ComboBox Width="200" x:Name="comboTipo" HorizontalContentAlignment="Left" materialDesign:HintAssist.Hint="Tipo" FontSize="15" 
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox}" Text="{Binding CurrentProducto.Tipo}"  Grid.Column="1" Grid.Row="3"  Margin="20,0,0,8">
+                        <ComboBoxItem Content="Zapatilla"/>
+                        <ComboBoxItem Content="Zapato"/>
+                        <ComboBoxItem Content="Mocasin"/>
+                        <ComboBoxItem Content="Bota"/>
+                    </ComboBox>
+                    <TextBox materialDesign:HintAssist.Hint="Marca" x:Name="Marca" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             VerticalAlignment="Center" Width="200" FontSize="15" Text="{Binding CurrentProducto.Marca, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:TextFieldAssist.HasClearButton="True" Grid.Column="1" Grid.Row="4" Margin="20,0,0,8"/>
+                    <TextBox materialDesign:HintAssist.Hint="Color" x:Name="Color" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             VerticalAlignment="Center" Width="200" FontSize="15" Text="{Binding CurrentProducto.Color, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:TextFieldAssist.HasClearButton="True" Grid.Column="1" Grid.Row="5" Margin="20,0,0,8"/>
+
+                </Grid>
+                <Grid x:Name="GridSecundario" Background="LightSkyBlue" Margin="20,0,0,20" Width="500" Height="150" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Referencia" FontSize="15" TextAlignment="Right" Margin="10,3,10,10" Padding="10"/>
+                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Descripción" FontSize="15" TextAlignment="Right"  Margin="10,3,10,10"  Padding="10"/>
+                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Precio" FontSize="15" TextAlignment="Right"  Margin="10,3,10,10"  Padding="10"/>
+                    <TextBlock Grid.Column="2" Grid.Row="2" Text="Fecha entrada" FontSize="15" TextAlignment="Right"  Margin="10,3,10,10"  Padding="10"/>
+                    <TextBlock Grid.Column="2" Grid.Row="1" Text="Stock" FontSize="15" TextAlignment="Right"  Margin="10,3,10,10"  Padding="10"/>
+                    <TextBox materialDesign:HintAssist.Hint="Referencia" x:Name="referencia" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             VerticalAlignment="Center" Width="90" FontSize="13" Text="{Binding CurrentProducto.Referencia, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:TextFieldAssist.HasClearButton="True" Grid.Column="1" Grid.Row="0" Margin="7,0,0,10"/>
+                    <TextBox materialDesign:HintAssist.Hint="Descripción" x:Name="descripcion" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             VerticalAlignment="Center" Width="90" FontSize="13" Text="{Binding CurrentProducto.Descripcion, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:TextFieldAssist.HasClearButton="True" Grid.Column="1" Grid.Row="1" Margin="7,0,0,10"/>
+                    <TextBox materialDesign:HintAssist.Hint="Precio" x:Name="precio" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             VerticalAlignment="Center" Width="90" FontSize="13" Text="{Binding CurrentProducto.Precio, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:TextFieldAssist.HasClearButton="True" Grid.Column="1" Grid.Row="2" Margin="7,0,0,10"/>
+                    <DatePicker x:Name="date" materialDesign:HintAssist.Hint="Fecha entrada"
+                             VerticalAlignment="Center" Width="90" FontSize="13" SelectedDate="{Binding CurrentProducto.Fecha, StringFormat=dd/MM/yy, UpdateSourceTrigger=PropertyChanged}" 
+                             materialDesign:TextFieldAssist.HasClearButton="True" Grid.Column="3" Grid.Row="2" Margin="7,0,0,10"/>
+                    <TextBox materialDesign:HintAssist.Hint="Stock" x:Name="stock" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             VerticalAlignment="Center" Width="90" FontSize="13" Text="{Binding CurrentProducto.Stock, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:TextFieldAssist.HasClearButton="True" Grid.Column="3" Grid.Row="1" Margin="7,0,0,10"/>
+
+                </Grid>
+
+            </Grid>
+
+            <TextBlock HorizontalAlignment="Center">
+                <Button x:Name="btnCrear" Margin="20" Content="Crear" Width="100" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Right" Command="{Binding NewProductoCommand}" CommandParameter="{Binding ElementName=view}" Click="btnCrear_Click"/>
+                <Button x:Name="btnBorrar" Margin="20" Content="Borrar" Width="100" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Right" Command="{Binding DeleteProductoCommand}" Click="btnBorrar_Click"/>
+                <Button x:Name="btnModificar" Margin="20" Content="Modificar" Width="100" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" Command="{Binding EditProductoCommand}" CommandParameter="{Binding ElementName=view}" Click="btnModificar_Click"/>
+                <Button x:Name="btnAtras" Margin="20" Content="Atrás" Width="100" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" Command="{Binding LoadProductCommand}" Click="btnAtras_Click"/>
+            </TextBlock>
+        </StackPanel>
+
+    </StackPanel>
+
+</UserControl>

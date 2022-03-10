@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="WpfMVVM_Proyect.Views.ProveedoresView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:WpfMVVM_Proyect.Views"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d" 
+             x:Name="vista"
+             >
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadProveedorCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <StackPanel Background="White" Width="1200" Height="600">
+        <TextBlock Text="PROVEEDORES" FontSize="35" TextAlignment="center" FontStyle="Italic" Background="LightGray" Margin="20"/>
+        <StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid x:Name="GridProveedor" Background="AliceBlue" Margin="20" Width="500" HorizontalAlignment="Left">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="CIF" FontSize="20" TextAlignment="Right" Margin="10,10,25,5" Padding="10"/>
+                    <TextBlock Grid.Column="1" Grid.Row="1" FontSize="20"/>
+                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Nombre" FontSize="20" TextAlignment="Right"  Margin="10,10,25,5"  Padding="10"/>
+                    <TextBlock Grid.Column="0" Grid.Row="3" Text="Población" FontSize="20" TextAlignment="Right"  Margin="10,10,25,10"  Padding="10"/>
+                    <TextBlock Grid.Column="0" Grid.Row="4" Text="Teléfono" FontSize="20" TextAlignment="Right"  Margin="10,10,25,10"  Padding="10"/>
+                    <TextBlock Grid.Row="5" Text="" FontSize="20" TextAlignment="Right"  Margin="10,10,25,10"/>
+                    <TextBox x:Name="id" materialDesign:HintAssist.Hint="CIF" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             VerticalAlignment="Center" Width="200" FontSize="16" Text="{Binding CurrentProveedor._id, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:TextFieldAssist.HasClearButton="True" Grid.Column="1" Grid.Row="0" Margin="20,0,0,10"/>
+                    <TextBox  x:Name="nombre" materialDesign:HintAssist.Hint="Nombre" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             VerticalAlignment="Center" Width="200" FontSize="16" Text="{Binding CurrentProveedor.Nombre, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:TextFieldAssist.HasClearButton="True" Grid.Column="1" Grid.Row="2" Margin="20,0,0,10"/>
+                    <TextBox x:Name="poblacion" materialDesign:HintAssist.Hint="Poblacion" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             VerticalAlignment="Center" Width="200" FontSize="16" Text="{Binding CurrentProveedor.Poblacion, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:TextFieldAssist.HasClearButton="True" Grid.Column="1" Grid.Row="3" Margin="20,0,0,10"/>
+                    <TextBox x:Name="telefono" materialDesign:HintAssist.Hint="Telefono" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             VerticalAlignment="Center" Width="200" FontSize="16" Text="{Binding CurrentProveedor.Telefono, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:TextFieldAssist.HasClearButton="True" Grid.Column="1" Grid.Row="4" Margin="20,0,0,10"/>
+                    <TextBlock x:Name="warning" Text="-" Foreground="red" TextAlignment="Center" FontWeight="Bold" Grid.Column="1" FontSize="14" Grid.Row="6" HorizontalAlignment="Right" Margin="20"/>
+                </Grid>
+                <Grid Grid.Column="1" Margin="20" Width="480" HorizontalAlignment="Left" x:Name="GridListaProveedor">
+                    <ListView x:Name="proveedorlistView" ItemsSource="{Binding ListaProveedores}" MaxHeight="300" SelectionChanged="proveedorlistView_SelectionChanged">
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding LoadProveedoresCommand}" CommandParameter="{Binding ElementName=proveedorlistView , Path=SelectedItem}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="CIF" DisplayMemberBinding="{Binding Path=_id}"/>
+                                <GridViewColumn Header="Nombre" DisplayMemberBinding="{Binding Path=Nombre}"/>
+                                <GridViewColumn Header="Población" DisplayMemberBinding="{Binding Path=Poblacion}"/>
+                                <GridViewColumn Header="Teléfono" DisplayMemberBinding="{Binding Path=Telefono}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </Grid>
+            <TextBlock HorizontalAlignment="Center">
+                <Button x:Name="btnCrear" Margin="20" Content="Crear" Width="100" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Right" Command="{Binding ProveedorCommand}" CommandParameter="{Binding ElementName=vista}" Click="btnCrear_Click" Cursor="Hand"/>
+                <Button x:Name="btnBorrar" Margin="20" Content="Borrar" Width="100" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Right" Command="{Binding DeleteProveedorCommand}" Click="btnBorrar_Click"/>
+                <Button x:Name="btnModificar" Margin="20" Content="Modificar" Width="100" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" Command="{Binding EditProveedorCommand}" CommandParameter="{Binding ElementName=vista}" Click="btnModificar_Click"/>
+                <Button x:Name="btnAtras" Margin="20" Content="Atrás" Width="100" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" Click="btnAtras_Click" Command="{Binding LoadProveedoresCommand}"/>
+            </TextBlock>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

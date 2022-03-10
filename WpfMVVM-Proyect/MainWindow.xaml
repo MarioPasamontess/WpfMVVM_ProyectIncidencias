@@ -1,0 +1,42 @@
+﻿<Window x:Class="WpfMVVM_Proyect.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfMVVM_Proyect"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="800" >
+    <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Horizontal">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <ContentControl Content="{Binding SelectedViewModel}" Grid.Column="1"/>
+                <StackPanel Grid.Column="0">
+                    <Button Margin="10" Content="Home" Width="120"
+                    Command="{Binding UpdateViewCommand}"
+                    CommandParameter="Home"/>
+                    <Button Margin="10" Content="Proveedores" Width="120"
+                    Command="{Binding UpdateViewCommand}"
+                    CommandParameter="proveedores"/>
+                    <Button Margin="10" Content="Productos" Width="120"
+                    Command="{Binding UpdateViewCommand}"
+                    CommandParameter="productos"/>
+                    <Button Margin="10" Content="Factura" Width="120"
+                    Command="{Binding UpdateViewCommand}"
+                    CommandParameter="factura"/>
+                    <Button Margin="10" Content="Consultas" Width="120"
+                    Command="{Binding UpdateViewCommand}"
+                    CommandParameter="consulta"/>
+                </StackPanel>
+                
+            </Grid>
+        </StackPanel>
+    </StackPanel>
+</Window>

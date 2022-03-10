@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="WpfMVVM_Proyect.Views.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WpfMVVM_Proyect.Views"
+             mc:Ignorable="d">
+    <StackPanel Width="800" Height="500" Orientation="Vertical" Background="{StaticResource fondo1}">
+        <TextBlock Text="Tienda de calzados" TextAlignment="Center" Margin="10" FontSize="30" FontWeight="Heavy"/>
+        <TextBlock Text="Utiliza el menu de botones para interactuar" TextAlignment="Center" Margin="10" FontSize="15" FontWeight="Heavy"/>
+    </StackPanel>
+</UserControl>
