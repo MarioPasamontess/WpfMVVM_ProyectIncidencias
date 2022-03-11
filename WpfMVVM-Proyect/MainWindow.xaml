@@ -33,7 +33,7 @@
                     CommandParameter="factura"/>
                     <Button Margin="10" Content="Consultas" Width="120"
                     Command="{Binding UpdateViewCommand}"
-                    CommandParameter="consulta"/>
+                    CommandParameter="consulta" Cursor="Hand"/>
                 </StackPanel>
                 
             </Grid>

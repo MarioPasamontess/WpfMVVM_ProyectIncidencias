@@ -21,7 +21,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <TextBox Width="120" Grid.Column="0" HorizontalAlignment="Right" Text="{Binding Factura._idFactura}"/>
-                <Button Content="Consulta" Width="150" Height="30" HorizontalAlignment="Left" Grid.Column="1" Margin="5" Cursor="Hand"  Command="{Binding ConsultarCommand}" CommandParameter="idF"/>
+                <Button Content="Consulta" Width="150" Height="35" HorizontalAlignment="Left" Grid.Column="1" Margin="5" Cursor="Hand"  Command="{Binding ConsultarCommand}" CommandParameter="idF"/>
             </Grid>
         </StackPanel>
         <StackPanel Width="850" Height="110" Margin="10" Background="WhiteSmoke">
@@ -31,8 +31,44 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <ComboBox Width="120" Grid.Column="0" HorizontalAlignment="Right"/>
-                <Button Content="Consulta" Width="150" Height="30" HorizontalAlignment="Left" Grid.Column="1" Margin="5" Cursor="Hand"  Command="{Binding ConsultarCommand}" CommandParameter="idF"/>
+                <ComboBox Width="160" Grid.Column="0" HorizontalAlignment="Right" Margin="0,0,25,0" SelectedItem="{Binding DetalleFactura._idFactura._idCliente, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ListaClientes}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="DropDownOpened">
+                            <i:InvokeCommandAction Command="{Binding UpdateClienteCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+                <Button Content="Consulta" Width="150" Height="35" HorizontalAlignment="Left" Grid.Column="1" Margin="5" Cursor="Hand"  Command="{Binding ConsultarCommand}" CommandParameter="idF"/>
+            </Grid>
+        </StackPanel>
+        <StackPanel Width="850" Height="110" Margin="10" Background="WhiteSmoke">
+            <TextBlock Text="Consultar por factura por fecha" FontSize="18" HorizontalAlignment="Center" Margin="10" FontWeight="Bold"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <DatePicker Width="120" Grid.Column="0" HorizontalAlignment="Right" />
+                <Button Content="Consulta" Width="150" Height="35" HorizontalAlignment="Left" Grid.Column="1" Margin="5" Cursor="Hand"  Command="{Binding ConsultarCommand}" CommandParameter="idF"/>
+            </Grid>
+        </StackPanel>
+        <StackPanel Width="850" Height="110" Margin="10" Background="WhiteSmoke">
+            <TextBlock Text="Consultar por factura entre fecha" FontSize="18" HorizontalAlignment="Center" Margin="10" FontWeight="Bold"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="600"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Width="160" Grid.Column="0" HorizontalAlignment="Left" Margin="100,0,0,0" SelectedItem="{Binding DetalleFactura._idFactura._idCliente, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ListaClientes}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="DropDownOpened">
+                            <i:InvokeCommandAction Command="{Binding UpdateClienteCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+                <DatePicker Width="120" Grid.Column="0" HorizontalAlignment="Right"  Margin="0,0,15,0"/>
+                <DatePicker Width="120" Grid.Column="0" HorizontalAlignment="Right" Margin="0,0,160,0"/>
+                <Button Content="Consulta" Width="150" Height="35" HorizontalAlignment="Left" Grid.Column="1" Margin="5" Cursor="Hand"  Command="{Binding ConsultarCommand}" CommandParameter="idF"/>
             </Grid>
         </StackPanel>
     </StackPanel>

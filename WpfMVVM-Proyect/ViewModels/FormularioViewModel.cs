@@ -29,6 +29,16 @@ namespace WpfMVVM_Proyect.ViewModels
                 OnPropertyChanged(nameof(Cantidad));
             }
         }
+        private double total;
+        public double Total
+        {
+            get { return total; }
+            set
+            {
+                total = value;
+                OnPropertyChanged(nameof(Total));
+            }
+        }
         private ProductoModel2 producto;
         public ProductoModel2 Producto
         {
@@ -49,8 +59,18 @@ namespace WpfMVVM_Proyect.ViewModels
                 OnPropertyChanged(nameof(Cliente));
             }
         }
-        private DetalleFacturaModel factura;
-        public DetalleFacturaModel Factura
+        private DetalleFacturaModel detalleFactura;
+        public DetalleFacturaModel DetalleFactura
+        {
+            get { return detalleFactura; }
+            set
+            {
+                detalleFactura = value;
+                OnPropertyChanged(nameof(DetalleFactura));
+            }
+        }
+        private FacturaModel factura;
+        public FacturaModel Factura
         {
             get { return factura; }
             set
@@ -109,35 +129,6 @@ namespace WpfMVVM_Proyect.ViewModels
             catch (Exception ex) { }
             return insertarOk;
         }
-        /*public bool UpdateProducto(ProductoModel2 producto)
-        {
-            bool editOk = false;
-            try
-            {
-                foreach (ProductoModel2 p in listaProductos2)
-                {
-                    if (p._id.Equals(producto._id))
-                    {
-                        p.Tipo = producto.Tipo;
-                        p.Marca = producto.Marca;
-                        p.Color = producto.Color;
-                        p.Referencia = producto.Referencia;
-                        p.Descripcion = producto.Descripcion;
-                        p.Precio = producto.Precio;
-                        p.Stock = producto.Stock;
-                        p.Cantidad = p.Cantidad + producto.Cantidad;
-                        p.Total = p.Cantidad * p.Precio;
-                        editOk = true;
-                        break;
-                    }
-                }
-            }
-            catch
-            {
-
-            }
-            return editOk;
-        }*/
         public bool DeleteProducto(ProductoModel2 productoModel)
         {
             bool DeleteOk = false;

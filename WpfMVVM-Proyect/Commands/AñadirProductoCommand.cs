@@ -43,8 +43,9 @@ namespace WpfMVVM_Proyect.Commands
                 //if(formulario.ListaProductos2.Contains(p))
                 if (formulario.CurrentProducto._id.Equals(p._id))
                 {
-                    formulario.CurrentProducto.Cantidad = formulario.CurrentProducto.Cantidad + formulario.Cantidad; 
-                    formulario.CurrentProducto.Total = p.Cantidad * formulario.CurrentProducto.Precio;
+                    p.Cantidad = p.Cantidad + formulario.Cantidad; 
+                    p.Total = p.Cantidad * p.Precio;
+                    formulario.Total = formulario.Total + p.Total;
                     insertar = false;
                     break;
                 }
@@ -64,6 +65,7 @@ namespace WpfMVVM_Proyect.Commands
                     formulario.CurrentProducto.Total = formulario.CurrentProducto.Cantidad * formulario.CurrentProducto.Precio;
                     MessageBox.Show("Se ha creado correctamente");
                     formulario.CurrentProducto = new ProductoModel2();
+                    formulario.Total = formulario.Total + formulario.CurrentProducto.Total;
 
 
                 }

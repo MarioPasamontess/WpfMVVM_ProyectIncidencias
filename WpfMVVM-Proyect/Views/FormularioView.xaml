@@ -9,17 +9,17 @@
              xmlns:wpf="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
              mc:Ignorable="d" 
              x:Name="view"
-             d:DesignHeight="630" d:DesignWidth="900">
+             d:DesignHeight="650" d:DesignWidth="900">
     <StackPanel Background="White">
         <StackPanel Width="850" Height="110" Margin="10" Background="WhiteSmoke">
             <TextBlock Text="FACTURA" FontSize="23" HorizontalAlignment="Center" Margin="10" FontWeight="Bold"/>
             <TextBlock Text="Fecha Factura" HorizontalAlignment="Center"/>
-            <DatePicker Width="120" SelectedDate="{Binding Factura._idFactura.Fecha, StringFormat=dd-MM-yyyy}"/>
+            <DatePicker Width="120" SelectedDate="{Binding DetalleFactura._idFactura.Fecha, StringFormat=dd-MM-yyyy}"/>
         </StackPanel>
         <StackPanel Width="850" Height="110" Margin="10" Background="WhiteSmoke">
             <TextBlock Text="CLIENTE" FontSize="17" HorizontalAlignment="Center" Margin="10" FontWeight="Bold"/>
             <TextBlock Text="Elige un cliente" HorizontalAlignment="Center"/>
-            <ComboBox Width="160" SelectedItem="{Binding Factura._idFactura.Nombre, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ListaClientes}">
+            <ComboBox Width="160" SelectedItem="{Binding DetalleFactura._idFactura._idCliente, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ListaClientes}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="DropDownOpened">
                         <i:InvokeCommandAction Command="{Binding UpdateClienteCommand}"/>
@@ -80,7 +80,8 @@
                 </Grid.ColumnDefinitions>
             </Grid>
         </StackPanel>
-        <TextBlock Text="Total Factura" HorizontalAlignment="Center" FontSize="15" Margin="10"/>
+        <TextBlock HorizontalAlignment="Center" FontSize="15" Margin="2" Text="Total factura"/>
+        <TextBlock HorizontalAlignment="Center" FontSize="10" Margin="10" Text="{Binding Total}"/>
         <Button Content="Crear factura" Width="200"  Command="{Binding InsertFacturaCommand}" Cursor="Hand"/>
     </StackPanel>
 </UserControl>

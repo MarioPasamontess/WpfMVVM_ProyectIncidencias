@@ -40,10 +40,10 @@ namespace WpfMVVM_Proyect.Commands
             {
                 MainViewModel.SelectedViewModel = new ReportViewModel();
             }
-            /*else if (vista.Equals("consulta"))
+            else if (vista.Equals("consulta"))
             {
-                MainViewModel.SelectedViewModel = new ConsultaViewModel();
-            }*/
+                MainViewModel.SelectedViewModel = new ConsultaViewModel(this);
+            }
 
         }
         public MainViewModel MainViewModel { get; set; }

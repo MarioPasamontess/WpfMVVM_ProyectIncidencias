@@ -61,5 +61,19 @@ namespace WpfMVVM_Proyect.Models
                 OnPropertyChanged(nameof(Fecha));
             }
         }
+        private double total;
+        public double Total
+        {
+            get
+            {
+                return total;
+            }
+            set
+            {
+                total = value;
+                OnPropertyChanged(nameof(Total));
+            }
+        }
+
     }
 }

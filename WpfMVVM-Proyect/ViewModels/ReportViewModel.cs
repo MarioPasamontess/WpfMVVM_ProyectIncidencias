@@ -21,10 +21,10 @@ namespace WpfMVVM_Proyect.ViewModels
         }
         public void GenerarInformeIncidenciasFactura(int factura)
         {
-            rds.Name = "InformeIncidencias";
-            //rds.Value = DataSetHandler.GetDataByFactura(factura);
+            rds.Name = "Informe";
+            rds.Value = DataSetHandler.GetDataByFactura(factura);
             myReport.LocalReport.DataSources.Add(rds);
-            myReport.LocalReport.ReportPath = "../../Reports/InformeIncidenciasDNI.rdlc";
+            myReport.LocalReport.ReportPath = "../../Report/InformeIncidenciasFactura.rdlc";
             byte[] PDFBytes = myReport.LocalReport.Render(format: "PDF", deviceInfo: "");
             pdfData = "data:application/pdf;base64," + Convert.ToBase64String(PDFBytes);
         }
