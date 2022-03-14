@@ -13,7 +13,7 @@ namespace WpfMVVM_Proyect.ViewModels
     internal class ConsultaViewModel: ViewModelBase
     {
         public ICommand ConsultarCommand { set; get; }
-        public ICommand UpdateClienteCommand { set; get; }
+        public ICommand UpdateClienteConsultCommand { set; get; }
 
         public int IdF { set; get; }
         private ClienteModel cliente;
@@ -36,6 +36,16 @@ namespace WpfMVVM_Proyect.ViewModels
                 OnPropertyChanged(nameof(Factura));
             }
         }
+        private DetalleFacturaModel detalleFactura;
+        public DetalleFacturaModel DetalleFactura
+        {
+            get { return detalleFactura; }
+            set
+            {
+                detalleFactura = value;
+                OnPropertyChanged(nameof(DetalleFactura));
+            }
+        }
         private ObservableCollection<ClienteModel> listaClientes;
         public ObservableCollection<ClienteModel> ListaClientes
         {
@@ -54,7 +64,7 @@ namespace WpfMVVM_Proyect.ViewModels
         {
             ConsultarCommand = new ConsultarCommand(this);
             this.updateViewCommand = updateViewCommand;
-            //UpdateClienteCommand = new UpdateClienteCommand(); DUDA QUE PONGO AQUÍ
+            UpdateClienteConsultCommand = new UpdateClienteConsultCommand(this); 
 
         }
     }

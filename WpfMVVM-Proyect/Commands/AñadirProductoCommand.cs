@@ -27,23 +27,14 @@ namespace WpfMVVM_Proyect.Commands
 
         public void Execute(object parameter)
         {
-            /*bool okinsertar = DataSetHandler.InsertarProducto(formulario.Producto);
-            if (okinsertar)
-            {
-                formulario.Producto = new ProductoModel2();
-            }
-            else
-            {
-                MessageBox.Show("Error al insertar");
-            }*/
             bool insertar = true;
             formulario.CurrentProducto = (ProductoModel2)parameter;         
             foreach (ProductoModel2 p in formulario.ListaProductos2)
             {
-                //if(formulario.ListaProductos2.Contains(p))
                 if (formulario.CurrentProducto._id.Equals(p._id))
                 {
-                    p.Cantidad = p.Cantidad + formulario.Cantidad; 
+                    p.Cantidad = p.Cantidad + formulario.Cantidad;
+                    formulario.Total = formulario.Total - p.Total;
                     p.Total = p.Cantidad * p.Precio;
                     formulario.Total = formulario.Total + p.Total;
                     insertar = false;
@@ -64,8 +55,9 @@ namespace WpfMVVM_Proyect.Commands
                     formulario.CurrentProducto.Cantidad = formulario.Cantidad;
                     formulario.CurrentProducto.Total = formulario.CurrentProducto.Cantidad * formulario.CurrentProducto.Precio;
                     MessageBox.Show("Se ha creado correctamente");
-                    formulario.CurrentProducto = new ProductoModel2();
                     formulario.Total = formulario.Total + formulario.CurrentProducto.Total;
+                    formulario.CurrentProducto = new ProductoModel2();
+                    
 
 
                 }

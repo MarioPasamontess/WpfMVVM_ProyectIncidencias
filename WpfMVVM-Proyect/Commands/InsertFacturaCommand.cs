@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+using WpfMVVM_Proyect.Models;
 using WpfMVVM_Proyect.Services.DataSet;
 using WpfMVVM_Proyect.ViewModels;
 
@@ -40,6 +42,24 @@ namespace WpfMVVM_Proyect.Commands
                     formViewModel.Incidencia = new IncidenciaModel();
                 }
             }*/
+            //foreach (ClienteModel c in formularioViewModel.ListaClientes)
+            //{
+
+            //}
+            //formularioViewModel.Factura.ListaProductosCantidadFactura = formularioViewModel.ListaProductosCantidad;
+            int idCliente = DataSetHandler.GetClienteByDNI(formularioViewModel.Factura._idCliente._dni);
+                formularioViewModel.Factura._idCliente._dni = idCliente;
+                bool insertarOK = DataSetHandler.insertarFactura(formularioViewModel.Factura, formularioViewModel.ListaProductos2);
+                if (!insertarOK)
+                {
+                    MessageBox.Show("Factura insertada correctamente");
+                    formularioViewModel.Factura = new FacturaModel();
+                }
+                else
+                {
+                    MessageBox.Show("La Factura no se ha registrado correctamente");
+                    
+                }
         }
         FormularioViewModel formularioViewModel { set; get; }
         InsertFacturaCommand(FormularioViewModel formularioViewModel)

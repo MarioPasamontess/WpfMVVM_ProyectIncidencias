@@ -14,6 +14,8 @@ namespace WpfMVVM_Proyect.Services.DataSet
     {
         private static InformeTableAdapter adapter = new InformeTableAdapter();
         private static clienteTableAdapter clienteAdapter = new clienteTableAdapter();
+        private static FacturaTableAdapter facturaAdapter = new FacturaTableAdapter();
+        private static detalleFacturaTableAdapter detallesFacturaAdapter = new detalleFacturaTableAdapter();
         public static ObservableCollection<ClienteModel> getCliente()
         {
             DataTable clieDataTable = clienteAdapter.GetData();
@@ -37,6 +39,14 @@ namespace WpfMVVM_Proyect.Services.DataSet
         public static DataTable GetDataByFactura(int idF)
         {
             return adapter.GetDataByIdFactura(idF);
+        }
+        public static DataTable GetDataByClient(int dni)
+        {
+            return adapter.GetDataByDNICliente(dni);
+        }
+        public static DataTable GetDataByFecha(DateTime fecha)
+        {
+            return adapter.GetDataByFecha(fecha.ToString());
         }
         private static productoTableAdapter productoAdapter = new productoTableAdapter();
         public static ObservableCollection<ProductoModel2> getProducto()
@@ -62,6 +72,43 @@ namespace WpfMVVM_Proyect.Services.DataSet
             {
 
             }
+        }
+        public static bool insertarFactura(FacturaModel factura, ObservableCollection<ProductoModel2> listaProductos2)
+        {
+            int cont = 0;
+            try
+            {
+                facturaAdapter.Insert(factura._idCliente._dni,factura.Fecha.ToString());
+                DataRow ultimoRegistro = facturaAdapter.GetData().Last();
+                int idUltimaFactura = (int)ultimoRegistro["id_factura"];
+                foreach (ProductoModel2 p in listaProductos2)
+                {
+                    detallesFacturaAdapter.Insert(cont, idUltimaFactura,p._id, p.Descripcion, p.Cantidad, p.Precio);
+                    cont++;
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+        public static int GetClienteByDNI(int dni)
+        {
+            try
+            {
+                DataTable clienteDT = adapter.GetDataByDNICliente(dni);
+                DataRow clienteRow = clienteDT.Rows[0];
+                int dniCliente = (int)clienteRow["DNI"];
+                return dniCliente;
+            }
+            catch
+            {
+                return 0;
+            }
+
         }
         private static detalleFacturaTableAdapter detalleAdapter = new detalleFacturaTableAdapter();
         public static int GetUltimaFactura()
