@@ -11,7 +11,7 @@ using WpfMVVM_Proyect.ViewModels;
 
 namespace WpfMVVM_Proyect.Commands
 {
-    public class InsertFacturaCommand : ICommand
+    class InsertFacturaCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
 
@@ -22,47 +22,37 @@ namespace WpfMVVM_Proyect.Commands
 
         public void Execute(object parameter)
         {
-            /*int idFactura = DataSetHandler.GetDataByFactura(formularioViewModel.Factura._idFactura);
-            
-            if (idEmpleado == 0)
+            ClienteModel cliente = formularioViewModel.Cliente;
+            formularioViewModel.Factura.Total = formularioViewModel.Total;
+            if (cliente is null)
             {
-                MessageBox.Show("El DNI no existe");
+                MessageBox.Show("Selecciona un cliente");
             }
-            else
+            else if (formularioViewModel.Factura.Fecha.ToString() == "")
             {
-                formViewModel.Incidencia.IdEmpleado = idEmpleado;
-                bool insertarOk = DataSetHandler.InsertarIncidencia(formViewModel.Incidencia);
-                if (!insertarOk)
-                {
-                    MessageBox.Show("No se pudo insertar. Llama al servicio técnico: 923442313");
-                }
-                else
-                {
-                    MessageBox.Show("La incidencia se registró correctamente");
-                    formViewModel.Incidencia = new IncidenciaModel();
-                }
-            }*/
-            //foreach (ClienteModel c in formularioViewModel.ListaClientes)
-            //{
-
-            //}
-            //formularioViewModel.Factura.ListaProductosCantidadFactura = formularioViewModel.ListaProductosCantidad;
-            int idCliente = DataSetHandler.GetClienteByDNI(formularioViewModel.Factura._idCliente._dni);
-                formularioViewModel.Factura._idCliente._dni = idCliente;
-                bool insertarOK = DataSetHandler.insertarFactura(formularioViewModel.Factura, formularioViewModel.ListaProductos2);
-                if (!insertarOK)
+                MessageBox.Show("Seleccione una fecha.");
+            }
+            else if (formularioViewModel.Factura.Total <= 0)
+            {
+                MessageBox.Show("Inserte algún producto.");
+            }
+            else {
+                bool insertarOK = DataSetHandler.insertarFactura(cliente._dni, formularioViewModel.Factura.Fecha,formularioViewModel.Factura.Total, formularioViewModel.ListaProductos2);
+                if (insertarOK)
                 {
                     MessageBox.Show("Factura insertada correctamente");
                     formularioViewModel.Factura = new FacturaModel();
+                    
                 }
                 else
                 {
                     MessageBox.Show("La Factura no se ha registrado correctamente");
-                    
+
                 }
+            }
         }
-        FormularioViewModel formularioViewModel { set; get; }
-        InsertFacturaCommand(FormularioViewModel formularioViewModel)
+        public FormularioViewModel formularioViewModel { set; get; }
+        public InsertFacturaCommand(FormularioViewModel formularioViewModel)
         {
             this.formularioViewModel = formularioViewModel;
         }

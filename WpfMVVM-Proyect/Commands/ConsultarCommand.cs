@@ -22,7 +22,7 @@ namespace WpfMVVM_Proyect.Commands
             string tipoInforme = (string)parameter;
             if (tipoInforme.Equals("idF"))
             {
-                consultaViewModel.updateViewCommand.reportViewModel.GenerarInformeIncidenciasFactura(consultaViewModel.IdF);
+                consultaViewModel.updateViewCommand.reportViewModel.GenerarInformeIncidenciasFactura(consultaViewModel.idFactura);
                 consultaViewModel.updateViewCommand.Execute("report");
             }
             else if (tipoInforme.Equals("Client"))

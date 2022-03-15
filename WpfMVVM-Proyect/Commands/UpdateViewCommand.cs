@@ -38,7 +38,7 @@ namespace WpfMVVM_Proyect.Commands
             }
             else if (vista.Equals("report"))
             {
-                MainViewModel.SelectedViewModel = new ReportViewModel();
+                MainViewModel.SelectedViewModel = reportViewModel;
             }
             else if (vista.Equals("consulta"))
             {

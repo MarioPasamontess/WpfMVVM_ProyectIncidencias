@@ -14,12 +14,12 @@
         <StackPanel Width="850" Height="110" Margin="10" Background="WhiteSmoke">
             <TextBlock Text="FACTURA" FontSize="23" HorizontalAlignment="Center" Margin="10" FontWeight="Bold"/>
             <TextBlock Text="Fecha Factura" HorizontalAlignment="Center"/>
-            <DatePicker Width="120" SelectedDate="{Binding DetalleFactura._idFactura.Fecha, StringFormat=dd-MM-yyyy}"/>
+            <DatePicker Width="120" SelectedDate="{Binding Factura.Fecha, StringFormat=dd-MM-yyyy}"/>
         </StackPanel>
         <StackPanel Width="850" Height="110" Margin="10" Background="WhiteSmoke">
             <TextBlock Text="CLIENTE" FontSize="17" HorizontalAlignment="Center" Margin="10" FontWeight="Bold"/>
             <TextBlock Text="Elige un cliente" HorizontalAlignment="Center"/>
-            <ComboBox Width="160" SelectedItem="{Binding DetalleFactura._idFactura._idCliente, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ListaClientes}">
+            <ComboBox Width="160" SelectedItem="{Binding Cliente, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ListaClientes}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="DropDownOpened">
                         <i:InvokeCommandAction Command="{Binding UpdateClienteCommand}"/>

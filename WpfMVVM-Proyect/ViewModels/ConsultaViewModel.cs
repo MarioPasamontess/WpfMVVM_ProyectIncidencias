@@ -15,7 +15,6 @@ namespace WpfMVVM_Proyect.ViewModels
         public ICommand ConsultarCommand { set; get; }
         public ICommand UpdateClienteConsultCommand { set; get; }
 
-        public int IdF { set; get; }
         private ClienteModel cliente;
         public ClienteModel Cliente
         {
@@ -59,13 +58,15 @@ namespace WpfMVVM_Proyect.ViewModels
                 OnPropertyChanged(nameof(ListaClientes));
             }
         }
+        public int idFactura { set; get; }
         public UpdateViewCommand updateViewCommand { set; get; }
         public ConsultaViewModel(UpdateViewCommand updateViewCommand)
         {
             ConsultarCommand = new ConsultarCommand(this);
             this.updateViewCommand = updateViewCommand;
-            UpdateClienteConsultCommand = new UpdateClienteConsultCommand(this); 
-
+            UpdateClienteConsultCommand = new UpdateClienteConsultCommand(this);
+            //Factura.Fecha = DateTime.Today;
+            Factura = new FacturaModel();
         }
     }
 }

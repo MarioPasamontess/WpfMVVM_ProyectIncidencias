@@ -23,7 +23,7 @@ namespace WpfMVVM_Proyect.Services.DataSet
             foreach (DataRow clie in clieDataTable.Rows)
             {
                 ClienteModel myClie = new ClienteModel();
-                myClie._dni = (int)clie["DNI"];
+                myClie._dni = clie["DNI"].ToString();
                 myClie.Nombre = clie["Nombre"].ToString();
                 myClie.Direccion = clie["Direccion"].ToString();
                 myClie.Telefono = clie["Telefono"].ToString();
@@ -40,7 +40,7 @@ namespace WpfMVVM_Proyect.Services.DataSet
         {
             return adapter.GetDataByIdFactura(idF);
         }
-        public static DataTable GetDataByClient(int dni)
+        public static DataTable GetDataByClient(string dni)
         {
             return adapter.GetDataByDNICliente(dni);
         }
@@ -73,18 +73,16 @@ namespace WpfMVVM_Proyect.Services.DataSet
 
             }
         }
-        public static bool insertarFactura(FacturaModel factura, ObservableCollection<ProductoModel2> listaProductos2)
+        public static bool insertarFactura(string dni, DateTime fecha, double total, ObservableCollection<ProductoModel2> listaProductos2)
         {
-            int cont = 0;
             try
             {
-                facturaAdapter.Insert(factura._idCliente._dni,factura.Fecha.ToString());
+                facturaAdapter.Insert(dni,fecha.ToString(),total);
                 DataRow ultimoRegistro = facturaAdapter.GetData().Last();
-                int idUltimaFactura = (int)ultimoRegistro["id_factura"];
+                int idUltimaFactura = (int)ultimoRegistro["Identificador"];
                 foreach (ProductoModel2 p in listaProductos2)
                 {
-                    detallesFacturaAdapter.Insert(cont, idUltimaFactura,p._id, p.Descripcion, p.Cantidad, p.Precio);
-                    cont++;
+                    detallesFacturaAdapter.Insert(idUltimaFactura,p._id, p.Descripcion, p.Cantidad, p.Precio);
                 }
 
                 return true;
@@ -95,18 +93,19 @@ namespace WpfMVVM_Proyect.Services.DataSet
             }
 
         }
-        public static int GetClienteByDNI(int dni)
+
+        public static string GetClienteByDNI(string dni)
         {
             try
             {
                 DataTable clienteDT = adapter.GetDataByDNICliente(dni);
                 DataRow clienteRow = clienteDT.Rows[0];
-                int dniCliente = (int)clienteRow["DNI"];
+                string dniCliente = (string)clienteRow["DNI"];
                 return dniCliente;
             }
             catch
             {
-                return 0;
+                return "";
             }
 
         }
@@ -120,10 +119,9 @@ namespace WpfMVVM_Proyect.Services.DataSet
         private static productoTableAdapter productAdapter = new productoTableAdapter();
         public static bool InsertarProducto(ProductoModel2 p)
         {
-            int id = 3;
             try
             {
-                productAdapter.Insert(id,p.Tipo,p.Marca, p.Color, p.Referencia,p.Descripcion,p.Precio, p.Stock, p.Cantidad);
+                productAdapter.Insert(p.Tipo,p.Marca, p.Color, p.Referencia,p.Descripcion,p.Precio, p.Stock, p.Cantidad, p.Total.ToString());
                 return true;
             }
             catch

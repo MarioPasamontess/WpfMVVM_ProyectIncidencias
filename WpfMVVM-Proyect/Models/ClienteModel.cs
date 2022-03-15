@@ -22,8 +22,8 @@ namespace WpfMVVM_Proyect.Models
         {
             return MemberwiseClone();
         }
-        private int dni;
-        public int _dni
+        private string dni;
+        public string _dni
         {
             get
             {

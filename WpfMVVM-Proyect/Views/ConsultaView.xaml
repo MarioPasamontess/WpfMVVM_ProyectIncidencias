@@ -20,7 +20,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBox Width="120" Grid.Column="0" HorizontalAlignment="Right" Text="{Binding Factura._idFactura}"/>
+                <TextBox Width="120" Grid.Column="0" HorizontalAlignment="Right" Text="{Binding idFactura}"/>
                 <Button Content="Consulta" Width="150" Height="35" HorizontalAlignment="Left" Grid.Column="1" Margin="5" Cursor="Hand"  Command="{Binding ConsultarCommand}" CommandParameter="idF"/>
             </Grid>
         </StackPanel>
@@ -31,7 +31,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <ComboBox Width="160" Grid.Column="0" HorizontalAlignment="Right" Margin="0,0,25,0" SelectedItem="{Binding DetalleFactura._idFactura._idCliente, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ListaClientes}">
+                <ComboBox Width="160" Grid.Column="0" HorizontalAlignment="Right" Margin="0,0,25,0" SelectedItem="{Binding Cliente, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ListaClientes}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="DropDownOpened">
                             <i:InvokeCommandAction Command="{Binding UpdateClienteConsultCommand}"/>
@@ -48,7 +48,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <DatePicker Width="120" Grid.Column="0" HorizontalAlignment="Right" />
+                <DatePicker Width="120" Grid.Column="0" HorizontalAlignment="Right" SelectedDate="{Binding Factura.Fecha, StringFormat=dd-MM-yyyy}"/>
                 <Button Content="Consulta" Width="150" Height="35" HorizontalAlignment="Left" Grid.Column="1" Margin="5" Cursor="Hand"  Command="{Binding ConsultarCommand}" CommandParameter="Fecha"/>
             </Grid>
         </StackPanel>

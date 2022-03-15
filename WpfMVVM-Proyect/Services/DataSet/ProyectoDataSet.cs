@@ -4,6 +4,13 @@
 
     partial class ProyectoDataSet
     {
+        partial class InformeDataTable
+        {
+        }
+
+        partial class InformeDataTable
+        {
+        }
     }
 }
 

@@ -33,7 +33,7 @@ namespace WpfMVVM_Proyect.ViewModels
             byte[] PDFBytes = myReport.LocalReport.Render(format: "PDF", deviceInfo: "");
             pdfData = "data:application/pdf;base64," + Convert.ToBase64String(PDFBytes);
         }
-        public void GenerarInformeIncidenciasCliente(int dni)
+        public void GenerarInformeIncidenciasCliente(string dni)
         {
             rds.Name = "Informe";
             rds.Value = DataSetHandler.GetDataByClient(dni);

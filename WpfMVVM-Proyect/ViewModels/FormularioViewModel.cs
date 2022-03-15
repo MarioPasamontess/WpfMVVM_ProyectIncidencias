@@ -19,6 +19,8 @@ namespace WpfMVVM_Proyect.ViewModels
         public ICommand AñadirProductoCommand { set; get; }
         public ICommand LoadFacturaCommand { set; get; }
         public ICommand DeleteProFacturaCommand { set; get; }
+        public ICommand InsertFacturaCommand { set; get; }
+
         private int cantidad;
         public int Cantidad
         {
@@ -172,6 +174,9 @@ namespace WpfMVVM_Proyect.ViewModels
             AñadirProductoCommand = new AñadirProductoCommand(this);
             LoadFacturaCommand = new LoadFacturaCommand(this);
             DeleteProFacturaCommand = new DeleteProFacturaCommand(this);
+            InsertFacturaCommand = new InsertFacturaCommand(this);
+            Factura = new FacturaModel();
+            Factura.Fecha = DateTime.Today;
         }
     }
 }

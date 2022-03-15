@@ -293,6 +293,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Report\InformeIncidenciasCliente.rdlc" />
+    <Content Include="Report\InformeIncidenciasFecha.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="WpfMVVM_Proyect_TemporaryKey.pfx" />
     <Resource Include="IconApp.ico" />
     <Content Include="Report\InformeIncidenciasFactura.rdlc">
