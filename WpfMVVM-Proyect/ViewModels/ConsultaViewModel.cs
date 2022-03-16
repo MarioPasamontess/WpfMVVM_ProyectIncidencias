@@ -25,6 +25,12 @@ namespace WpfMVVM_Proyect.ViewModels
                 OnPropertyChanged(nameof(Cliente));
             }
         }
+        public DateTime Fecha { set; get; }
+        public DateTime Fecha1 { set; get; }
+        public DateTime Fecha2 { set; get; }
+
+        public bool checkFiltro { set; get; }
+
         private FacturaModel factura;
         public FacturaModel Factura
         {
@@ -65,7 +71,9 @@ namespace WpfMVVM_Proyect.ViewModels
             ConsultarCommand = new ConsultarCommand(this);
             this.updateViewCommand = updateViewCommand;
             UpdateClienteConsultCommand = new UpdateClienteConsultCommand(this);
-            //Factura.Fecha = DateTime.Today;
+            Fecha = DateTime.Today;
+            Fecha1 = DateTime.Today;
+            Fecha2 = DateTime.Today;
             Factura = new FacturaModel();
         }
     }

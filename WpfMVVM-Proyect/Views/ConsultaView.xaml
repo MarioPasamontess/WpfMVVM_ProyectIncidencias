@@ -48,7 +48,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <DatePicker Width="120" Grid.Column="0" HorizontalAlignment="Right" SelectedDate="{Binding Factura.Fecha, StringFormat=dd-MM-yyyy}"/>
+                <DatePicker Width="120" Grid.Column="0" HorizontalAlignment="Right" SelectedDate="{Binding Fecha, StringFormat=dd-MM-yyyy}"/>
                 <Button Content="Consulta" Width="150" Height="35" HorizontalAlignment="Left" Grid.Column="1" Margin="5" Cursor="Hand"  Command="{Binding ConsultarCommand}" CommandParameter="Fecha"/>
             </Grid>
         </StackPanel>
@@ -59,16 +59,17 @@
                     <ColumnDefinition Width="600"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <ComboBox Width="160" Grid.Column="0" HorizontalAlignment="Left" Margin="100,0,0,0" SelectedItem="{Binding DetalleFactura._idFactura._idCliente, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ListaClientes}" SelectionChanged="ComboBox_SelectionChanged">
+                <ComboBox x:Name="cbClient" Width="160" Grid.Column="0" HorizontalAlignment="Left" Margin="100,0,0,0" SelectedItem="{Binding Cliente}" ItemsSource="{Binding ListaClientes}" Visibility="Collapsed">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="DropDownOpened">
                             <i:InvokeCommandAction Command="{Binding UpdateClienteConsultCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </ComboBox>
-                <DatePicker Width="120" Grid.Column="0" HorizontalAlignment="Right"  Margin="0,0,15,0"/>
-                <DatePicker Width="120" Grid.Column="0" HorizontalAlignment="Right" Margin="0,0,160,0"/>
-                <Button Content="Consulta" Width="150" Height="35" HorizontalAlignment="Left" Grid.Column="1" Margin="5" Cursor="Hand"  Command="{Binding ConsultarCommand}" CommandParameter="idF"/>
+                <CheckBox Grid.Column="0" HorizontalAlignment="Left" Margin="280,0,0,0" IsChecked="{Binding checkFiltro}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" />
+                <DatePicker x:Name="Fecha2" Width="120" Grid.Column="0" HorizontalAlignment="Right"  Margin="0,0,15,0" SelectedDate="{Binding Fecha2, StringFormat=dd-MM-yyyy}"/>
+                <DatePicker x:Name="Fecha1" Width="120" Grid.Column="0" HorizontalAlignment="Right" Margin="0,0,160,0" SelectedDate="{Binding Fecha1, StringFormat=dd-MM-yyyy}"/>
+                <Button Content="Consulta" Width="150" Height="35" HorizontalAlignment="Left" Grid.Column="1" Margin="5" Cursor="Hand"  Command="{Binding ConsultarCommand}" CommandParameter="CliDate"/>
             </Grid>
         </StackPanel>
     </StackPanel>

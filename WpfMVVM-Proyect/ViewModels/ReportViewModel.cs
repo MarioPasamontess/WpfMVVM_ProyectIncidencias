@@ -16,44 +16,69 @@ namespace WpfMVVM_Proyect.ViewModels
 
         private string CurrentPath = Environment.CurrentDirectory;
         private string InformeIncidenciasFactura = "Report/InformeIncidenciasFactura.rdlc";
+        private string InformeIncidenciasCliente = "Report/InformeIncidenciasCliente.rdlc";
+        private string InformeIncidenciasFecha = "Report/InformeIncidenciasFecha.rdlc";
+        private string InformeIncidenciasFechaClient = "Report/InformeIncidenciasFechaClient.rdlc";
 
         public ReportViewModel()
         {
             myReport = new ReportViewer();
             rds = new ReportDataSource();
         }
-        public void GenerarInformeIncidenciasFactura(int factura)
+        public bool GenerarInformeIncidenciasFactura(int factura)
         {
             rds.Name = "Informe";
             rds.Value = DataSetHandler.GetDataByFactura(factura);
             myReport.LocalReport.DataSources.Add(rds);
-            myReport.LocalReport.ReportPath = "../../Report/InformeIncidenciasFactura.rdlc";
             //myReport.LocalReport.ReportPath = "../../Report/InformeIncidenciasFactura.rdlc";
             myReport.LocalReport.ReportPath = System.IO.Path.Combine(CurrentPath, InformeIncidenciasFactura);
             byte[] PDFBytes = myReport.LocalReport.Render(format: "PDF", deviceInfo: "");
             pdfData = "data:application/pdf;base64," + Convert.ToBase64String(PDFBytes);
+            return true;
         }
-        public void GenerarInformeIncidenciasCliente(string dni)
+        public bool GenerarInformeIncidenciasCliente(string dni)
         {
             rds.Name = "Informe";
             rds.Value = DataSetHandler.GetDataByClient(dni);
             myReport.LocalReport.DataSources.Add(rds);
-            myReport.LocalReport.ReportPath = "../../Report/InformeIncidenciasCliente.rdlc";
-            //myReport.LocalReport.ReportPath = "../../Report/InformeIncidenciasFactura.rdlc";
-            myReport.LocalReport.ReportPath = System.IO.Path.Combine(CurrentPath, InformeIncidenciasFactura);
+            //myReport.LocalReport.ReportPath = "../../Report/InformeIncidenciasCliente.rdlc";
+            myReport.LocalReport.ReportPath = System.IO.Path.Combine(CurrentPath, InformeIncidenciasCliente);
             byte[] PDFBytes = myReport.LocalReport.Render(format: "PDF", deviceInfo: "");
             pdfData = "data:application/pdf;base64," + Convert.ToBase64String(PDFBytes);
+            return true;
         }
-        public void GenerarInformeIncidenciasFecha(DateTime fecha)
+        public bool GenerarInformeIncidenciasFecha(DateTime fecha)
         {
             rds.Name = "Informe";
             rds.Value = DataSetHandler.GetDataByFecha(fecha);
             myReport.LocalReport.DataSources.Add(rds);
-            myReport.LocalReport.ReportPath = "../../Report/InformeIncidenciasFactura.rdlc";
-            //myReport.LocalReport.ReportPath = "../../Report/InformeIncidenciasFactura.rdlc";
-            myReport.LocalReport.ReportPath = System.IO.Path.Combine(CurrentPath, InformeIncidenciasFactura);
+            //myReport.LocalReport.ReportPath = "../../Report/InformeIncidenciasFecha.rdlc";
+            myReport.LocalReport.ReportPath = System.IO.Path.Combine(CurrentPath, InformeIncidenciasFecha);
             byte[] PDFBytes = myReport.LocalReport.Render(format: "PDF", deviceInfo: "");
             pdfData = "data:application/pdf;base64," + Convert.ToBase64String(PDFBytes);
+            return true;
+        }
+        public bool GenerarInformeIncidenciasClienteFecha(string dni, DateTime fecha1, DateTime fecha2)
+        {
+            rds.Name = "Informe";
+            rds.Value = DataSetHandler.GetDataByCliFecha(dni,fecha1,fecha2);
+            myReport.LocalReport.DataSources.Add(rds);
+            //myReport.LocalReport.ReportPath = "../../Report/InformeIncidenciasFechaClient.rdlc";
+            myReport.LocalReport.ReportPath = System.IO.Path.Combine(CurrentPath, InformeIncidenciasFechaClient);
+            byte[] PDFBytes = myReport.LocalReport.Render(format: "PDF", deviceInfo: "");
+            pdfData = "data:application/pdf;base64," + Convert.ToBase64String(PDFBytes);
+            return true;
+        }
+        public bool GenerarInformeIncidenciasFechas(DateTime fecha1, DateTime fecha2)
+        {
+            rds.Name = "Informe";
+            rds.Value = DataSetHandler.GetDataByFechas(fecha1, fecha2);
+            myReport.LocalReport.DataSources.Add(rds);
+            //myReport.LocalReport.ReportPath = "../../Report/InformeIncidenciasFecha.rdlc";
+            myReport.LocalReport.ReportPath = System.IO.Path.Combine(CurrentPath, InformeIncidenciasFecha);
+            byte[] PDFBytes = myReport.LocalReport.Render(format: "PDF", deviceInfo: "");
+            pdfData = "data:application/pdf;base64," + Convert.ToBase64String(PDFBytes);
+            return true;
         }
     }
 }

@@ -26,7 +26,6 @@ namespace WpfMVVM_Proyect
         public MainWindow()
         {
             InitializeComponent();
-
             DataContext = new MainViewModel();
         }
     }

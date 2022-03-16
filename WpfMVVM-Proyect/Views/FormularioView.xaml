@@ -19,7 +19,7 @@
         <StackPanel Width="850" Height="110" Margin="10" Background="WhiteSmoke">
             <TextBlock Text="CLIENTE" FontSize="17" HorizontalAlignment="Center" Margin="10" FontWeight="Bold"/>
             <TextBlock Text="Elige un cliente" HorizontalAlignment="Center"/>
-            <ComboBox Width="160" SelectedItem="{Binding Cliente, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ListaClientes}">
+            <ComboBox Width="160" SelectedItem="{Binding Cliente, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ListaClientes}" SelectionChanged="ComboBox_SelectionChanged">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="DropDownOpened">
                         <i:InvokeCommandAction Command="{Binding UpdateClienteCommand}"/>

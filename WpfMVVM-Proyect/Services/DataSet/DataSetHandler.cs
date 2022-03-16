@@ -48,6 +48,14 @@ namespace WpfMVVM_Proyect.Services.DataSet
         {
             return adapter.GetDataByFecha(fecha.ToString());
         }
+        public static DataTable GetDataByCliFecha(string dni, DateTime fecha1, DateTime fecha2)
+        {
+            return adapter.GetDataByDateClient(dni,fecha1.ToString(), fecha2.ToString());
+        }
+        public static DataTable GetDataByFechas(DateTime fecha1, DateTime fecha2)
+        {
+            return adapter.GetDataByFechas(fecha1.ToString(), fecha2.ToString());
+        }
         private static productoTableAdapter productoAdapter = new productoTableAdapter();
         public static ObservableCollection<ProductoModel2> getProducto()
         {

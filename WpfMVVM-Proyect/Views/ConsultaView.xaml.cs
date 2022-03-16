@@ -25,9 +25,14 @@ namespace WpfMVVM_Proyect.Views
             InitializeComponent();
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
 
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            cbClient.Visibility = Visibility.Visible;
+        }
+        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            cbClient.Visibility=Visibility.Collapsed;
         }
     }
 }

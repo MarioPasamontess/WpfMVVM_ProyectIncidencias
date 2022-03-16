@@ -22,24 +22,6 @@ namespace WpfMVVM_Proyect.Commands
 
         public void Execute(object parameter)
         {
-            /*if (formularioViewModel.SelectedDpto != null)
-            {
-                bool okResult = DataSetHandler.BorrarDpto(resumenViewModel.SelectedDpto);
-                if (okResult)
-                {
-                    resumenViewModel.UpdateDptoCommand.Execute(null);
-                    MessageBox.Show("Departamento borrado");
-                }
-                else
-                {
-                    MessageBox.Show("No se puedo eliminar el departamento");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Selecciona un departamento");
-            }*/
-            //bool okResult = formularioViewModel.DeleteProducto(formularioViewModel.CurrentProducto);
 
             try
             {
@@ -47,8 +29,9 @@ namespace WpfMVVM_Proyect.Commands
                 {
                     if (p._id.Equals(formularioViewModel.CurrentProducto._id))
                     {
+                        formularioViewModel.Total = formularioViewModel.Total - p.Total;
                         formularioViewModel.ListaProductos2.Remove(p);
-                        //totalF = totalf - totalP
+                        
                     }
                 }
             }
@@ -56,15 +39,6 @@ namespace WpfMVVM_Proyect.Commands
             {
 
             }
-            /*bool okResult = formularioViewModel.DeleteProducto(pro);
-            if (okResult)
-            {
-                MessageBox.Show("Se ha eliminado el producto");
-            }
-            else
-            {
-                MessageBox.Show("No se ha eliminado el producto");
-            }*/
         }
         FormularioViewModel formularioViewModel { get; set; }
         public DeleteProFacturaCommand(FormularioViewModel formularioViewModel)
